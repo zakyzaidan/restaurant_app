@@ -59,7 +59,7 @@ class HomePage extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 10),
         child: Row(
           children: [
-            SizedBox(
+            Flexible(
               child: Hero(
                 tag: localRestaurant[index].pictureId,
                 child: ClipRRect(
@@ -72,26 +72,28 @@ class HomePage extends StatelessWidget {
               )
             ),
             const SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(localRestaurant[index].name,
-                style: Theme.of(context).textTheme.titleLarge),
-                Row(
-                  children: [
-                    const Icon(Icons.location_on),
-                    Text(localRestaurant[index].city,
-                    style: Theme.of(context).textTheme.titleMedium),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Icon(Icons.star, color: Colors.amber),
-                    Text(localRestaurant[index].rating.toString(),
-                    style: Theme.of(context).textTheme.titleMedium),
-                  ],
-                ),
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(localRestaurant[index].name,
+                  style: Theme.of(context).textTheme.titleLarge),
+                  Row(
+                    children: [
+                      const Icon(Icons.location_on),
+                      Text(localRestaurant[index].city,
+                      style: Theme.of(context).textTheme.titleMedium),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Icon(Icons.star, color: Colors.amber),
+                      Text(localRestaurant[index].rating.toString(),
+                      style: Theme.of(context).textTheme.titleMedium),
+                    ],
+                  ),
+                ],
+              ),
             )
           ],
         ),

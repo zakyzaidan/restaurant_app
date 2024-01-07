@@ -121,8 +121,8 @@ class _CardDrinksState extends State<_CardDrinks> {
           ...widget.menu.drinks.map<Widget>((e){
             return Row(
               children: [
-                const Icon(Icons.chevron_right),
-                Text(e.name),
+                const Flexible(child:Icon(Icons.chevron_right)),
+                Expanded(child: Text(e.name)),
               ],
             );
           }),
@@ -181,8 +181,8 @@ class _CardFoodsState extends State<_CardFoods> {
           ...widget.menu.foods.map<Widget>((e){
             return Row(
               children: [
-                const Icon(Icons.chevron_right),
-                Text(e.name),
+                const Flexible(child: Icon(Icons.chevron_right)),
+                Expanded(child: Text(e.name)),
               ],
             );
           }),
