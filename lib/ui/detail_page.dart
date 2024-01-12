@@ -164,7 +164,7 @@ class DetailPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                    Expanded(child: _CardDrinks(menu: _detailController.detailResult!.restaurant.menus)),
+                    Expanded(child: CardDrinks(menu: _detailController.detailResult!.restaurant.menus)),
                     const SizedBox(width: 10),
                     Expanded(child: _CardFoods(menu: _detailController.detailResult!.restaurant.menus)),
                 ],
@@ -224,9 +224,9 @@ class DetailPage extends StatelessWidget {
   }
 }
 
-class _CardDrinks extends StatelessWidget {
+class CardDrinks extends StatelessWidget {
   DetailController dc = Get.find();
-  _CardDrinks({Key? key, required this.menu});
+  CardDrinks({Key? key, required this.menu});
   final Menus menu;
   @override
   Widget build(BuildContext context) {
