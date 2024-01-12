@@ -1,37 +1,33 @@
 // To parse this JSON data, do
 //
-//     final purpleList = purpleListFromJson(jsonString);
+//     final search = searchFromJson(jsonString);
 
 import 'dart:convert';
 
-PurpleList purpleListFromJson(String str) => PurpleList.fromJson(json.decode(str));
+Search searchFromJson(String str) => Search.fromJson(json.decode(str));
 
-String purpleListToJson(PurpleList data) => json.encode(data.toJson());
+String searchToJson(Search data) => json.encode(data.toJson());
 
-class PurpleList {
+class Search {
     bool error;
-    String message;
-    int count;
+    int founded;
     List<Restaurant> restaurants;
 
-    PurpleList({
+    Search({
         required this.error,
-        required this.message,
-        required this.count,
+        required this.founded,
         required this.restaurants,
     });
 
-    factory PurpleList.fromJson(Map<String, dynamic> json) => PurpleList(
+    factory Search.fromJson(Map<String, dynamic> json) => Search(
         error: json["error"],
-        message: json["message"],
-        count: json["count"],
+        founded: json["founded"],
         restaurants: List<Restaurant>.from(json["restaurants"].map((x) => Restaurant.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
         "error": error,
-        "message": message,
-        "count": count,
+        "founded": founded,
         "restaurants": List<dynamic>.from(restaurants.map((x) => x.toJson())),
     };
 }
