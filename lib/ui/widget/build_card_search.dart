@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:restaurant_app/data/controllers/restaurant_controller.dart';
-import 'package:restaurant_app/data/model/local_restaurant.dart';
+import 'package:restaurant_app/data/controllers/search_controller.dart';
+import 'package:restaurant_app/data/model/search_restaurant.dart';
 
-InkWell buildCard(BuildContext context, int index) {
-    final RestaurantController restaurantC = Get.find();
-    PurpleList? localRestaurant = restaurantC.listResult;
+InkWell buildCardSearch(BuildContext context, int index) {
+    final SearchQueryController restaurantC = Get.find();
+    Search? localRestaurant = restaurantC.searchResult;
 
     return InkWell(
       onTap: () {
@@ -20,7 +20,8 @@ InkWell buildCard(BuildContext context, int index) {
                 tag: localRestaurant!.restaurants[index].id,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Image.network('https://restaurant-api.dicoding.dev/images/small/'+localRestaurant.restaurants[index].pictureId,
+                  child: Image.network('https://restaurant-api.dicoding.dev/images/small/'
+                  +localRestaurant.restaurants[index].pictureId,
                   height: 100,
                   width: 150,
                   fit: BoxFit.fill,),
@@ -56,4 +57,3 @@ InkWell buildCard(BuildContext context, int index) {
       ),
     );
   }
-

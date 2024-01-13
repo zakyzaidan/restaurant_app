@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_app/data/api/api_services.dart';
 import 'package:restaurant_app/data/controllers/search_controller.dart';
-import 'package:restaurant_app/ui/widget/build_card.dart';
+import 'package:restaurant_app/ui/widget/build_card_search.dart';
 
 class SearchPage extends StatelessWidget {
   final SearchQueryController searchController = Get.put(SearchQueryController(apiService: ApiService()));
@@ -118,7 +118,7 @@ class SearchPage extends StatelessWidget {
                 child: ListView.builder(
                           itemCount: searchController.searchResult!.founded,
                           itemBuilder:(_,index){
-                            return buildCard(context, index);
+                            return buildCardSearch(context, index);
                           },
                         )
                 ),
