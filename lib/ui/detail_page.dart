@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 import 'package:restaurant_app/common/style.dart';
 import 'package:restaurant_app/data/api/api_services.dart';
 import 'package:restaurant_app/data/controllers/detail_controller.dart';
-import 'package:restaurant_app/data/model/detail_restaurant.dart';
+import 'package:restaurant_app/ui/widget/card_drinks.dart';
+import 'package:restaurant_app/ui/widget/card_foods.dart';
 
 class DetailPage extends StatelessWidget {
   final DetailController _detailController = Get.put(DetailController(id: "${Get.arguments}", apiService: ApiService()));
@@ -166,7 +167,7 @@ class DetailPage extends StatelessWidget {
                 children: [
                     Expanded(child: CardDrinks(menu: _detailController.detailResult!.restaurant.menus)),
                     const SizedBox(width: 10),
-                    Expanded(child: _CardFoods(menu: _detailController.detailResult!.restaurant.menus)),
+                    Expanded(child: CardFoods(menu: _detailController.detailResult!.restaurant.menus)),
                 ],
               )
             ],
@@ -221,118 +222,5 @@ class DetailPage extends StatelessWidget {
       ),
     ),
   );
-  }
-}
-
-class CardDrinks extends StatelessWidget {
-  DetailController dc = Get.find();
-  CardDrinks({Key? key, required this.menu});
-  final Menus menu;
-  @override
-  Widget build(BuildContext context) {
-    return Obx(
-      () => GestureDetector(
-        onTap: () => dc.showMenuDrinks(),
-        child: dc.isShowDrinks.value ? 
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.asset("assets/images/drinks.jpg",
-              height: 100, fit: BoxFit.cover,),
-            ),
-            Text("Drinks",
-            style: Theme.of(context).textTheme.titleLarge,),
-            const Divider(),
-            ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: menu.drinks.length,
-              itemBuilder: (_, index){
-                return Row(
-                  children: [
-                    const Flexible(child:Icon(Icons.chevron_right)),
-                    Expanded(child: Text(menu.drinks[index].name)),
-                  ],
-                );
-              },
-            ),
-            const SizedBox(height: 30)
-          ],
-        )
-        : Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.asset("assets/images/drinks.jpg",
-              ),
-            ),
-            Text("Drinks",
-            style: Theme.of(context).textTheme.titleLarge,),
-            const Divider(),
-            const SizedBox(height: 30)
-          ],
-        )
-      ),
-    );
-  }
-}
-
-
-class _CardFoods extends StatelessWidget {
-  DetailController dc = Get.find();
-  _CardFoods({Key? key, required this.menu});
-  final Menus menu;
-  @override
-  Widget build(BuildContext context) {
-    return Obx(
-      () => GestureDetector(
-        onTap: () => dc.showMenuFoods(),
-        child: dc.isShowFoods.value ? 
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.asset("assets/images/foods.jpg",
-              height: 100, fit: BoxFit.cover,),
-            ),
-            Text("Foods",
-            style: Theme.of(context).textTheme.titleLarge,),
-            const Divider(),
-            ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: menu.drinks.length,
-              itemBuilder: (_, index){
-                return Row(
-                  children: [
-                    const Flexible(child:Icon(Icons.chevron_right)),
-                    Expanded(child: Text(menu.drinks[index].name)),
-                  ],
-                );
-              },
-            ),
-            const SizedBox(height: 30)
-          ],
-        )
-        : Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.asset("assets/images/foods.jpg",
-              ),
-            ),
-            Text("Foods",
-            style: Theme.of(context).textTheme.titleLarge,),
-            const Divider(),
-            const SizedBox(height: 30)
-          ],
-        )
-      ),
-    );
   }
 }

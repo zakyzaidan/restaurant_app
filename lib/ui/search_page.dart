@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_app/data/api/api_services.dart';
-import 'package:restaurant_app/data/model/search_restaurant.dart';
 import 'package:restaurant_app/data/controllers/search_controller.dart';
+import 'package:restaurant_app/ui/widget/build_card.dart';
 
 class SearchPage extends StatelessWidget {
   final SearchQueryController searchController = Get.put(SearchQueryController(apiService: ApiService()));
@@ -19,9 +19,9 @@ class SearchPage extends StatelessWidget {
           if (state == ResultState.loading){
             return const Center(child: CircularProgressIndicator());
           }else if(state == ResultState.hasData){
-            return BuildSearchResult(context);
+            return buildSearchResult(context);
           }else if(state == ResultState.noData){
-            return BuildSearchResultNothing(context);
+            return buildSearchResultNothing(context);
           }else if(state == ResultState.error){
             return Center(
               child: Material(
@@ -38,7 +38,7 @@ class SearchPage extends StatelessWidget {
     );
   }
 
-  SafeArea BuildSearchResultNothing(BuildContext context) {
+  SafeArea buildSearchResultNothing(BuildContext context) {
     return SafeArea(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -82,7 +82,7 @@ class SearchPage extends StatelessWidget {
       );
   }
 
-  SafeArea BuildSearchResult(BuildContext context) {
+  SafeArea buildSearchResult(BuildContext context) {
     return SafeArea(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -118,7 +118,7 @@ class SearchPage extends StatelessWidget {
                 child: ListView.builder(
                           itemCount: searchController.searchResult!.founded,
                           itemBuilder:(_,index){
-                            return _buildCard(context, index);
+                            return buildCard(context, index);
                           },
                         )
                 ),
@@ -128,59 +128,3 @@ class SearchPage extends StatelessWidget {
       );
   }
 }
-
-
-InkWell _buildCard(BuildContext context, int index) {
-    final SearchQueryController restaurantC = Get.find();
-    Search? localRestaurant = restaurantC.searchResult;
-
-    return InkWell(
-      onTap: () {
-        Get.toNamed("/detail", arguments: localRestaurant.restaurants[index].id);
-      },
-      child: Card(
-        margin: const EdgeInsets.symmetric(vertical: 10),
-        child: Row(
-          children: [
-            Flexible(
-              child: Hero(
-                tag: localRestaurant!.restaurants[index].id,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network('https://restaurant-api.dicoding.dev/images/small/'
-                  +localRestaurant.restaurants[index].pictureId,
-                  height: 100,
-                  width: 150,
-                  fit: BoxFit.fill,),
-                ),
-              )
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(localRestaurant.restaurants[index].name,
-                  style: Theme.of(context).textTheme.titleLarge),
-                  Row(
-                    children: [
-                      const Icon(Icons.location_on),
-                      Text(localRestaurant.restaurants[index].city,
-                      style: Theme.of(context).textTheme.titleMedium),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      const Icon(Icons.star, color: Colors.amber),
-                      Text(localRestaurant.restaurants[index].rating.toString(),
-                      style: Theme.of(context).textTheme.titleMedium),
-                    ],
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
