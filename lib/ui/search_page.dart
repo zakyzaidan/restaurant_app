@@ -64,7 +64,7 @@ class SearchPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10)
                   ),
                   hintText: "Type here ...",
-                  hintStyle: Theme.of(context).textTheme.labelMedium,
+                  hintStyle: Theme.of(context).textTheme.titleMedium,
                   suffixIcon: IconButton(
                     onPressed: ()=>searchController.getSearch(searchController.searchQuery.text), 
                     icon: const Icon(Icons.search))
@@ -73,7 +73,7 @@ class SearchPage extends StatelessWidget {
               Expanded(
                 child: Center(
                         child: Text("Pencarian anda tidak ditemukan",
-                        style: Theme.of(context).textTheme.displayMedium,),
+                        style: Theme.of(context).textTheme.displaySmall,),
                       )
                 ),
             ],
@@ -114,6 +114,15 @@ class SearchPage extends StatelessWidget {
                     icon: const Icon(Icons.search))
                 ),
               ),
+              Row(
+                children: [
+                  const Icon(Icons.location_on),
+                  Text(
+                    "${searchController.searchResult!.founded.toString()} Restaurant found"
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10,),
               Expanded(
                 child: ListView.builder(
                           itemCount: searchController.searchResult!.founded,
