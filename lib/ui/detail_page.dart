@@ -3,13 +3,15 @@ import 'package:get/get.dart';
 import 'package:restaurant_app/common/style.dart';
 import 'package:restaurant_app/data/api/api_services.dart';
 import 'package:restaurant_app/data/controllers/detail_controller.dart';
+import 'package:restaurant_app/data/controllers/review_controller.dart';
 import 'package:restaurant_app/ui/widget/card_drinks.dart';
 import 'package:restaurant_app/ui/widget/card_foods.dart';
 
 class DetailPage extends StatelessWidget {
   final DetailController _detailController = Get.put(DetailController(id: "${Get.arguments}", apiService: ApiService()));
+  final ReviewController _reviewController = Get.put(ReviewController(id: "${Get.arguments}", apiService: ApiService()));
 
-  DetailPage({Key? key}) : super(key: key);
+  DetailPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class DetailPage extends StatelessWidget {
         if (state == ResultState.loading){
           return const Center(child: CircularProgressIndicator());
         }else if(state == ResultState.hasData){
-          return BuildDetailPage(context);
+          return buildDetailPage(context);
         }else if(state == ResultState.noData){
           return Center(
               child: Material(
@@ -42,7 +44,7 @@ class DetailPage extends StatelessWidget {
     );
   }
 
-  Scaffold BuildDetailPage(BuildContext context) {
+  Scaffold buildDetailPage(BuildContext context) {
     return Scaffold(
     body: NestedScrollView(
       headerSliverBuilder: (context, innerBoxIsScrolled) {
@@ -178,6 +180,50 @@ class DetailPage extends StatelessWidget {
             children: [
               Text("Review",
               style:  Theme.of(context).textTheme.displaySmall),
+              const SizedBox(height: 10,),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text("Name", style: Theme.of(context).textTheme.titleMedium,),
+                        const SizedBox(width: 10,),
+                        Expanded(
+                          child: TextField(
+                            controller: _reviewController.nameController,
+                            decoration: InputDecoration(
+                              hintText: "Type your name here ...",
+                              hintStyle: Theme.of(context).textTheme.titleMedium,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 5,),
+                    Text("Review", style: Theme.of(context).textTheme.titleMedium,),
+                    TextField(
+                          controller: _reviewController.reviewController,
+                          decoration: InputDecoration(
+                            hintText: "Give some review ...",
+                            hintStyle: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        ),
+                    const SizedBox(height: 5,),
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        backgroundColor: secondaryColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50)
+                        )
+                      ),
+                      onPressed: ()=>submit(
+                        context,
+                        _reviewController.nameController.text,
+                        _reviewController.reviewController.text
+                      ),
+                      child: Text("Submit",style: Theme.of(context).textTheme.bodySmall,)),
+                  ],
+                ),
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -222,5 +268,30 @@ class DetailPage extends StatelessWidget {
       ),
     ),
   );
+  }
+
+  void submit(BuildContext context, String nama, String review){
+    if(nama.isEmpty || review.isEmpty){
+      const snackBar = SnackBar(
+        duration: Duration(seconds: 5),
+        content: Text("Isi nama dan review untuk membuat review"),
+        backgroundColor: Colors.red,
+    );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      return;
+    }
+
+    _reviewController.postReview(
+      '${Get.arguments}', _reviewController.nameController.text, _reviewController.reviewController.text);
+    
+    _reviewController.nameController.clear();
+    _reviewController.reviewController.clear();
+    const snackBar = SnackBar(
+        duration: Duration(seconds: 5),
+        content: Text("Anda berhasil membuat review, silahkan refresh..."),
+        backgroundColor: Colors.green,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
   }
 }

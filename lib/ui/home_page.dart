@@ -7,6 +7,8 @@ import 'package:restaurant_app/ui/widget/build_card.dart';
 class HomePage extends StatelessWidget {
   static const routeName = '/home_page';
   final listR = Get.put(RestaurantController(apiService: ApiService()));
+
+  HomePage({super.key});
  
   @override
   Widget build(BuildContext context) {

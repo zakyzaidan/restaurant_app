@@ -69,6 +69,7 @@ class SearchPage extends StatelessWidget {
                     onPressed: ()=>searchController.getSearch(searchController.searchQuery.text), 
                     icon: const Icon(Icons.search))
                 ),
+                onEditingComplete: ()=>searchController.getSearch(searchController.searchQuery.text),
               ),
               Expanded(
                 child: Center(
@@ -113,6 +114,7 @@ class SearchPage extends StatelessWidget {
                     onPressed: ()=>searchController.getSearch(searchController.searchQuery.text), 
                     icon: const Icon(Icons.search))
                 ),
+                onEditingComplete: ()=>searchController.getSearch(searchController.searchQuery.text),
               ),
               Row(
                 children: [

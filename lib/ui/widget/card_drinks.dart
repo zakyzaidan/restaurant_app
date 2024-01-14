@@ -4,9 +4,11 @@ import 'package:restaurant_app/data/controllers/detail_controller.dart';
 import 'package:restaurant_app/data/model/detail_restaurant.dart';
 
 class CardDrinks extends StatelessWidget {
-  DetailController dc = Get.find();
-  CardDrinks({Key? key, required this.menu});
+  CardDrinks({super.key, required this.menu});
+
+  final DetailController dc = Get.find();
   final Menus menu;
+  
   @override
   Widget build(BuildContext context) {
     return Obx(

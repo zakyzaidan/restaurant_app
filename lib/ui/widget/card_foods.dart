@@ -5,8 +5,8 @@ import 'package:restaurant_app/data/model/detail_restaurant.dart';
 
 
 class CardFoods extends StatelessWidget {
-  DetailController dc = Get.find();
-  CardFoods({Key? key, required this.menu});
+  CardFoods({super.key, required this.menu});
+  final DetailController dc = Get.find();
   final Menus menu;
   @override
   Widget build(BuildContext context) {

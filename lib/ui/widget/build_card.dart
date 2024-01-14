@@ -20,7 +20,7 @@ InkWell buildCard(BuildContext context, int index) {
                 tag: localRestaurant!.restaurants[index].id,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Image.network('https://restaurant-api.dicoding.dev/images/small/'+localRestaurant.restaurants[index].pictureId,
+                  child: Image.network('https://restaurant-api.dicoding.dev/images/small/${localRestaurant.restaurants[index].pictureId}',
                   height: 100,
                   width: 150,
                   fit: BoxFit.fill,),
