@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:restaurant_app/data/controllers/db_controller.dart';
 import 'package:restaurant_app/data/controllers/restaurant_controller.dart';
 import 'package:restaurant_app/data/model/local_restaurant.dart';
 
 InkWell buildCard(BuildContext context, int index) {
     final RestaurantController restaurantC = Get.find();
+    final DbController dbController = Get.find();
     PurpleList? localRestaurant = restaurantC.listResult;
 
     return InkWell(
@@ -50,6 +52,37 @@ InkWell buildCard(BuildContext context, int index) {
                   ),
                 ],
               ),
+            ),
+            GetBuilder(
+              init: dbController,
+              builder: (_){
+                var restaurant = localRestaurant.restaurants[index];
+                return FutureBuilder(
+                  future: dbController.isRestaurantFavById(restaurant.id), 
+                  builder: (_, snapshot){
+                    var isFavorite = snapshot.data ?? false;
+                    return Container(
+                      child: isFavorite ?
+                      IconButton(
+                        onPressed: (){
+                          dbController.deleteRestaurantFav(restaurant.id);
+                        },
+                        icon: const Icon(Icons.favorite),
+                      )
+                      : IconButton(
+                        onPressed: (){
+                          dbController.addRestaurantFav(Restaurant(
+                            id: restaurant.id, 
+                            name: restaurant.name, 
+                            description: restaurant.description, 
+                            pictureId: restaurant.pictureId, 
+                            city: restaurant.city, 
+                            rating: restaurant.rating));
+                        }, 
+                        icon: const Icon(Icons.favorite_border))
+                    );
+                  });
+              }
             )
           ],
         ),

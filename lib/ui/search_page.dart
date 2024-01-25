@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_app/data/api/api_services.dart';
+import 'package:restaurant_app/data/controllers/db_controller.dart';
 import 'package:restaurant_app/data/controllers/search_controller.dart';
 import 'package:restaurant_app/ui/widget/build_card_search.dart';
 
 class SearchPage extends StatelessWidget {
   final SearchQueryController searchController = Get.put(SearchQueryController(apiService: ApiService()));
+  final DbController dbController = Get.put(DbController());
 
   SearchPage({super.key});
 
@@ -16,13 +18,13 @@ class SearchPage extends StatelessWidget {
         init: searchController,
         builder: (_) {
           var state = searchController.state;
-          if (state == ResultState.loading){
+          if (state == ResultStateSearch.loading){
             return const Center(child: CircularProgressIndicator());
-          }else if(state == ResultState.hasData){
+          }else if(state == ResultStateSearch.hasData){
             return buildSearchResult(context);
-          }else if(state == ResultState.noData){
+          }else if(state == ResultStateSearch.noData){
             return buildSearchResultNothing(context);
-          }else if(state == ResultState.error){
+          }else if(state == ResultStateSearch.error){
             return Center(
               child: Material(
                 child: Text(searchController.message)),
