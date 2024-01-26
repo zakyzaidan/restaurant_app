@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:restaurant_app/data/controllers/db_controller.dart';
+import 'package:restaurant_app/data/controllers/favoritedb_controller.dart';
 import 'package:restaurant_app/data/controllers/search_controller.dart';
 import 'package:restaurant_app/data/model/local_restaurant.dart';
 import 'package:restaurant_app/data/model/search_restaurant.dart';
 
 InkWell buildCardSearch(BuildContext context, int index) {
     final SearchQueryController restaurantC = Get.find();
-    DbController dbController = Get.find();
+    FavoriteDbController dbController = Get.find();
     Search? localRestaurant = restaurantC.searchResult;
 
     return InkWell(

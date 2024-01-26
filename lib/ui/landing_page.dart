@@ -66,7 +66,7 @@ class _LandingPageState extends State<LandingPage> {
         children: [
           HomePage(),
           FavoritePage(),
-          const ProfilePage()
+          ProfilePage()
         ],
       )),
     );

@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
         textTheme: myTextTheme,
         useMaterial3: true,
       ),
-      home: LandingPage(),
+      home: const LandingPage(),
       getPages: [
         GetPage(name: "/home", page: () => HomePage()),
         GetPage(name: "/recomendation", page: () => RecomendationPage()),

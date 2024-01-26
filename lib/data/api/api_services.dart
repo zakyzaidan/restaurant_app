@@ -9,7 +9,7 @@ class ApiService{
   static const String _baseUrl = 'https://restaurant-api.dicoding.dev';
   static const String _list = '/list';
 
-  Future<PurpleList> getList() async {
+  Future<PurpleList> getList(http.Client http) async {
     final response = await http.get(Uri.parse("$_baseUrl$_list"));
     if(response.statusCode == 200){
       return PurpleList.fromJson(json.decode(response.body));
@@ -27,7 +27,7 @@ class ApiService{
     }
   }
 
-  Future<Search> getSearchQuery(String query) async {
+  Future<Search> getSearchQuery(http.Client http, String query) async {
     final response = await http.get(Uri.parse("$_baseUrl/search?q=$query"));
     if (response.statusCode == 200) {
       return Search.fromJson(json.decode(response.body));

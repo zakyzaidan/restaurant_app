@@ -4,18 +4,29 @@ import 'package:get/get.dart';
 import 'package:restaurant_app/data/model/local_restaurant.dart';
 import 'package:restaurant_app/helper/favoritedb_helper.dart';
 
-class DbController extends GetxController{
+class FavoriteDbController extends GetxController{
   List<Restaurant> _restaurantsFav = [];
   late FavoriteDbHelper _dbHelper;
 
   List<Restaurant> get restaurantFav => _restaurantsFav;
 
-  DbController(){
+  FavoriteDbController(){
     _dbHelper = FavoriteDbHelper();
+  }
+
+  @override
+  onInit(){
+    getAllRestaurantFav();
+    super.onInit();
   }
 
   Future<void> addRestaurantFav(Restaurant restaurant) async{
     await _dbHelper.insertRestaurantFav(restaurant);
+    _restaurantsFav = await _dbHelper.getRestaurantFav();
+    update();
+  }
+
+  void getAllRestaurantFav() async{
     _restaurantsFav = await _dbHelper.getRestaurantFav();
     update();
   }

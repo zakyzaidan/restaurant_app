@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:restaurant_app/data/controllers/db_controller.dart';
+import 'package:restaurant_app/data/controllers/favoritedb_controller.dart';
 import 'package:restaurant_app/data/controllers/restaurant_controller.dart';
 import 'package:restaurant_app/data/model/local_restaurant.dart';
 
 InkWell buildCard(BuildContext context, int index) {
     final RestaurantController restaurantC = Get.find();
-    final DbController dbController = Get.find();
+    final FavoriteDbController dbController = Get.find();
     PurpleList? localRestaurant = restaurantC.listResult;
 
     return InkWell(

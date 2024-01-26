@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_app/common/style.dart';
 import 'package:restaurant_app/data/api/api_services.dart';
-import 'package:restaurant_app/data/controllers/db_controller.dart';
+import 'package:restaurant_app/data/controllers/favoritedb_controller.dart';
 import 'package:restaurant_app/data/controllers/detail_controller.dart';
 import 'package:restaurant_app/data/controllers/review_controller.dart';
 import 'package:restaurant_app/data/model/local_restaurant.dart';
@@ -48,7 +48,7 @@ class DetailPage extends StatelessWidget {
   }
 
   Scaffold buildDetailPage(BuildContext context) {
-    final DbController dbController = Get.put(DbController());
+    final FavoriteDbController dbController = Get.put(FavoriteDbController());
     return Scaffold(
     body: Stack(
       children: [

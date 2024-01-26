@@ -1,13 +1,13 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_app/common/style.dart';
 import 'package:restaurant_app/data/controllers/scheduling_controller.dart';
-import 'package:restaurant_app/ui/widget/custom_dialog.dart';
+import 'package:restaurant_app/helper/preference_helper.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
-
+  final SchedulingController schedulingController = Get.put(
+      SchedulingController(preferenceHelper: PreferenceHelper()));
+  ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,22 +49,18 @@ class ProfilePage extends StatelessWidget {
   }
 
   Widget _buildList(BuildContext context) {
-    final SchedulingController schedulingController = Get.put(SchedulingController());
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        const Text('Scheduling News'),
+        const Text('Scheduling Restaurant'),
         GetBuilder(
           init: schedulingController,
           builder: (_){
             return Switch.adaptive(
               value: schedulingController.isScheduled,
-              onChanged: (value) async {
-                if (Platform.isIOS) {
-                  customDialog(context);
-                } else {
+              onChanged: (value) {
                   schedulingController.scheduledRestaurant(value);
-                }
+                  schedulingController.enableNotification(value);
               }
             );
           }

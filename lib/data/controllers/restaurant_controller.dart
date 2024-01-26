@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:get/get.dart';
+import "package:http/http.dart" as http;
 import 'package:restaurant_app/data/api/api_services.dart';
 import 'package:restaurant_app/data/model/local_restaurant.dart';
 
@@ -28,7 +29,7 @@ class RestaurantController extends GetxController{
     try{
       _state = ResultState.loading;
       update();
-      final listResult = await apiService.getList();
+      final listResult = await apiService.getList(http.Client());
       if(listResult.restaurants.isEmpty){
         _state = ResultState.noData;
         update();

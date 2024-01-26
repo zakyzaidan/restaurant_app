@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_app/common/style.dart';
 import 'package:restaurant_app/data/api/api_services.dart';
-import 'package:restaurant_app/data/controllers/db_controller.dart';
+import 'package:restaurant_app/data/controllers/favoritedb_controller.dart';
 import 'package:restaurant_app/data/controllers/restaurant_controller.dart';
 import 'package:restaurant_app/ui/widget/build_card.dart';
 
 class RecomendationPage extends StatelessWidget {
   final listR = Get.put(RestaurantController(apiService: ApiService()));  
-  final DbController dbController = Get.put(DbController());
+  final FavoriteDbController dbController = Get.put(FavoriteDbController());
 
   RecomendationPage({super.key});
  

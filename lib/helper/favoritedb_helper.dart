@@ -43,13 +43,11 @@ class FavoriteDbHelper {
   Future<void> insertRestaurantFav(Restaurant restaurant) async {
     final Database db = await database;
     await db.insert(_tableName, restaurant.toJson());
-    print('Data saved');
   }
 
   Future<List<Restaurant>> getRestaurantFav() async{
     final Database db = await database;
     List<Map<String, dynamic>> results = await db.query(_tableName);
-    print("--Get all restaurant fav--");
     return results.map((e) => Restaurant.fromJson(e)).toList();
   }
 
@@ -60,7 +58,6 @@ class FavoriteDbHelper {
       where: 'id = ?',
       whereArgs: [id],
     );
-    print(results);
     if(results.isNotEmpty){
       return results.first;
     }else{

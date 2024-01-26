@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import "package:http/http.dart" as http;
 import 'package:restaurant_app/data/api/api_services.dart';
 import 'package:restaurant_app/data/model/search_restaurant.dart';
 
@@ -26,7 +27,7 @@ class SearchQueryController extends GetxController{
     try{
       _state = ResultStateSearch.loading;
       update();
-      final searchResult = await apiService.getSearchQuery(searchQuery.text);
+      final searchResult = await apiService.getSearchQuery(http.Client(), searchQuery.text);
       if(searchResult.restaurantSearch.isEmpty){
         _state = ResultStateSearch.noData;
         update();
