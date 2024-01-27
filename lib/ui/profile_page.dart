@@ -53,17 +53,22 @@ class ProfilePage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         const Text('Scheduling Restaurant'),
-        GetBuilder(
-          init: schedulingController,
-          builder: (_){
-            return Switch.adaptive(
-              value: schedulingController.isScheduled,
-              onChanged: (value) {
-                  schedulingController.scheduledRestaurant(value);
-                  schedulingController.enableNotification(value);
+        Row(
+          children: [
+            Obx(() => Text(schedulingController.statusNotification.value)),
+            GetBuilder(
+              init: schedulingController,
+              builder: (_){
+                return Switch.adaptive(
+                  value: schedulingController.isScheduled,
+                  onChanged: (value) {
+                      schedulingController.scheduledRestaurant(value);
+                      schedulingController.enableNotification(value);
+                  }
+                );
               }
-            );
-          }
+            ),
+          ],
         ),
       ],
     );

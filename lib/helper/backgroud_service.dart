@@ -28,6 +28,7 @@ class BackgroundService {
   }
  
   static Future<void> callback() async {
+    // ignore: avoid_print
     print('Alarm fired!');
     final NotificationHelper notificationHelper = NotificationHelper();
     var result = await ApiService().getList(http.Client());

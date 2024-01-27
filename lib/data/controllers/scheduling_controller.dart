@@ -12,8 +12,11 @@ class SchedulingController extends GetxController{
   bool _isScheduled = false;
   bool get isScheduled => _isScheduled;
 
+  RxString statusNotification = "Off".obs;
+
   SchedulingController({required this.preferenceHelper}){
     _getIsNotification();
+    _getStatusNotification();
   }
 
   void _getIsNotification() async{
@@ -26,9 +29,21 @@ class SchedulingController extends GetxController{
     _getIsNotification();
   } 
 
+  void _getStatusNotification() async{
+    statusNotification.value = (await preferenceHelper.getStatusNotification)!;
+    update();
+  }
+
+  void changeStatusNotification(String value) async{
+    preferenceHelper.setStatusNotification(value);
+    _getStatusNotification();
+  } 
+
   Future<bool> scheduledRestaurant(bool value) async {
-    if (_isScheduled) {
+    if (value) {
+      // ignore: avoid_print
       print('Scheduling Restaurant Activated');
+      changeStatusNotification("On");
       update();
       return await AndroidAlarmManager.periodic(
         const Duration(hours: 24),
@@ -39,10 +54,11 @@ class SchedulingController extends GetxController{
         wakeup: true,
       );
     } else {
+      // ignore: avoid_print
       print('Scheduling Restaurant Canceled');
+      changeStatusNotification("Off");
       update();
       return await AndroidAlarmManager.cancel(1);
     }
   }
-
 }
